@@ -1,0 +1,22 @@
+service: softtek-ts
+
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  welcome:
+    handler: src/welcome.hello
+    events:
+      - httpApi: GET /
+
+custom:
+  esbuild:
+    bundle: true
+    minify: true
+
+plugins:
+  - serverless-esbuild
+  - serverless-offline
