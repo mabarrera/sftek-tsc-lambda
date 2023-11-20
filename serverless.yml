@@ -5,12 +5,38 @@ useDotenv: true
 provider:
   name: aws
   runtime: nodejs18.x
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource:
+        - arn:aws:dynamodb:us-east-1:822235993083:table/PeopleTable
 
 functions:
   welcome:
     handler: src/welcome.hello
     events:
       - httpApi: GET /
+
+  swapiAllPeople:
+    handler: src/swapi/people/allPeople.allPeople
+    timeout: 10
+    events:
+      - httpApi: GET /swapi/people
+
+resources:
+  Resources:
+    PeopleTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: PeopleTable
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
 
 custom:
   esbuild:
