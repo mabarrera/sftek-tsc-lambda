@@ -1,8 +1,8 @@
 import { APIGatewayProxyHandler } from "aws-lambda";
 import axios from "axios";
-import { SwapiResponsePeople } from "../../interfaces/swapi.interface";
-import { TranslateAWS, translatePeopleToEsp } from "../../services/translate.service";
-import { renamePeople, replaceSpecialChars } from "../../helpers";
+import { SwapiResponsePeople } from "../../../interfaces/swapi.interface";
+import { TranslateAWS, translatePeopleToEsp } from "../../../services/translate.service";
+import { renamePeople, replaceSpecialChars } from "../../../helpers";
 
 export const getPeople:APIGatewayProxyHandler = async (event) => {
   const {id} = event.pathParameters!

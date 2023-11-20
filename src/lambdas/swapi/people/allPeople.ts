@@ -1,9 +1,9 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import axios from 'axios';
 
-import { SwapiResponsePeople } from '../../interfaces/swapi.interface';
-import { translatePeopleToEsp } from '../../services/translate.service';
-import { replaceSpecialChars, renamePeople } from '../../helpers'
+import { SwapiResponsePeople } from '../../../interfaces/swapi.interface';
+import { translatePeopleToEsp } from '../../../services/translate.service';
+import { replaceSpecialChars, renamePeople } from '../../../helpers'
 
 export const allPeople:APIGatewayProxyHandler = async (event) => {
   try {
