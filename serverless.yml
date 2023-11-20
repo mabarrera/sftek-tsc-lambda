@@ -6,13 +6,18 @@ useDotenv: true
 provider:
   name: aws
   runtime: nodejs18.x
+  environment:
+    DYNAMODB_TABLE: 'PeopleTable'
   region: us-east-1
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:*
-      Resource:
-        - arn:aws:dynamodb:us-east-1:822235993083:table/PeopleTable
+  httpApi:
+    cors: true
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:*
+          Resource: "arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
 
 functions:
   welcome:
@@ -41,9 +46,9 @@ functions:
 resources:
   Resources:
     PeopleTable:
-      Type: AWS::DynamoDB::Table
+      Type: 'AWS::DynamoDB::Table'
       Properties:
-        TableName: PeopleTable
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
         BillingMode: PAY_PER_REQUEST
         AttributeDefinitions:
           - AttributeName: id
@@ -51,11 +56,6 @@ resources:
         KeySchema:
           - AttributeName: id
             KeyType: HASH
-
-custom:
-  esbuild:
-    bundle: true
-    minify: true
 
 plugins:
   - serverless-esbuild

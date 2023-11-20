@@ -8,7 +8,6 @@ export const addPeople:APIGatewayProxyHandler = async (event) => {
   try {
     const createdAt = new Date();
     const id = v4();
-
     const people:PeopleResponse = { id, name, lastname, email, createdAt };
 
     const dynamodb = new AWS.DynamoDB.DocumentClient();

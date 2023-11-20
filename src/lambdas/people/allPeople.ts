@@ -9,7 +9,6 @@ export const allPeople:APIGatewayProxyHandler = async (event) => {
     }).promise();
 
     const people = result.Items;
-
     return {
       statusCode: 200,
       body: JSON.stringify( people )
