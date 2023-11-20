@@ -20,9 +20,15 @@ functions:
 
   swapiAllPeople:
     handler: src/swapi/people/allPeople.allPeople
-    timeout: 10
+    timeout: 24
     events:
       - httpApi: GET /swapi/people
+
+  swapiGetPeople:
+    handler: src/swapi/people/getPeople.getPeople
+    timeout: 24
+    events:
+      - httpApi: GET /swapi/people/{id}
 
 resources:
   Resources:

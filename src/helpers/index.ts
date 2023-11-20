@@ -1,2 +1,2 @@
 export * from './rename-object'
-export * from './replace_data'
+export * from './replace-data'
